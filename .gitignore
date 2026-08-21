@@ -140,7 +140,3 @@ InitTestScene*.unity*
 *.hdr
 *.pdf
 *.raw
-
-# 素材文件夹
-Assets/Assets/
-Assets/craftpix-*/
