@@ -140,3 +140,11 @@ InitTestScene*.unity*
 *.hdr
 *.pdf
 *.raw
+
+# 素材文件夹
+Assets/Assets/
+Assets/craftpix-*/
+
+# api配置资源
+Assets/**/ApiSettings.asset
+Assets/**/ApiSettings.asset.meta
