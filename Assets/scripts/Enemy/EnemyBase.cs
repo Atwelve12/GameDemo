@@ -14,6 +14,10 @@ public enum EnemyState
 
 public class EnemyBase : MonoBehaviour
 {
+    [Header("Enemy 基础属性")]
+    public float HPMax = 100f;
+    public float HPNow = 100f;
+    public float AttackDamage = 10f;
 
     [Header("Enemy 待机")]
     public float idleTime = 2f;
@@ -26,7 +30,7 @@ public class EnemyBase : MonoBehaviour
     public float AttackRange = 1.5f;
     [HideInInspector]public float AttackTime = 1f;//攻击时间
     public float AttackWindup = 1f;//攻击前摇时间
-    public float AttackDamage = 1f;
+
 
     [Header("Enemy 移动")]
     public EnemyState currentState = EnemyState.Patrol;
@@ -224,6 +228,7 @@ public class EnemyBase : MonoBehaviour
     // 受击
     public virtual void GetHitEnter()
     {
+        canMove = false;
 
     }
 
@@ -234,7 +239,7 @@ public class EnemyBase : MonoBehaviour
 
     public virtual void GetHitExit()
     {
-
+        canMove = true;
     }   
 
     //死亡
@@ -343,9 +348,22 @@ public class EnemyBase : MonoBehaviour
             }
     }
 
-    public virtual void GetHit(int damage)
+    public virtual void GetHit(float damage)
     {
-        Debug.Log("GetHit: " + damage);
+        if (currentState != EnemyState.Death)
+        {
+            // 扣血逻辑
+            HPNow -= damage;
+            // if (HPNow <= 0)
+            // {
+            //   ChangeState(EnemyState.Death);
+            // }
+            // else
+            // {
+                ChangeState(EnemyState.GetHit);
+            // }
+        }
+
 
     }
 }
