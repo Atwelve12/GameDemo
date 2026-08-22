@@ -1,10 +1,12 @@
 # Game Dome for our NTCompetition
+
 Yixuan Hanlu Liying Zonglian Zhixing Hongjun Zeyuan
 
 If only pinyin were universally used aroud the word.....
 
 
 # MyProject 项目目录结构
+
 ```
 |
 |--- 📁 MyProject/                           # 项目根目录
@@ -46,6 +48,8 @@ If only pinyin were universally used aroud the word.....
 |   	|   	|--- 📄 scripts.meta
 |   	|   	|--- 📄 TextMesh Pro.meta
 |   	|   	|--- 📄 TileMaterial.meta
+|   	|
+|   	|--- 📁 Perfab/                         # 预制体文件
 |   	|
 |   	|--- 📁 Library/                         # Unity缓存和导入资源（自动生成）
 |   	|   |
