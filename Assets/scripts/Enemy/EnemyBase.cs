@@ -344,7 +344,7 @@ public class EnemyBase : MonoBehaviour
         if (player != null && Mathf.Abs(transform.position.x - player.transform.position.x) <= AttackRange)
             {
                 // 调用玩家受伤方法
-                // player.GetComponent<PlayerHealth>()?.TakeDamage(10);
+                 player.GetComponent<PlayerAttackControl>()?.TakeDamage(10);
             }
     }
 
@@ -354,14 +354,14 @@ public class EnemyBase : MonoBehaviour
         {
             // 扣血逻辑
             HPNow -= damage;
-            // if (HPNow <= 0)
-            // {
-            //   ChangeState(EnemyState.Death);
-            // }
-            // else
-            // {
+            //if (HPNow <= 0)
+            //{
+            //    ChangeState(EnemyState.Death);
+            //}
+            //else
+            //{
                 ChangeState(EnemyState.GetHit);
-            // }
+             //}
         }
 
 
