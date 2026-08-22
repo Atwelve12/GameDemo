@@ -16,8 +16,8 @@ If only pinyin were universally used aroud the word.....
 |       |       |   |
 |       |       |   |--- （有）
 |       |       |--- 📁 Assets/                     #素材
-|        |        |    |
-|        |        |    |---（手动加进去）
+|       |       |   |
+|       |       |   |---（手动加进去）
 |       |       |--- 📁 craftpix-895410-free-jungle-cartoon-.../   # 丛林卡通风格资源包
 |       |       |   |
 |       |       |   |--- （有）
@@ -39,9 +39,9 @@ If only pinyin were universally used aroud the word.....
 |       |       |   |--- （有）
 |       |       |
 |       |       |--- 📁 TileMaterial/                # 瓦片地图材质
-|          |       |   |
+|       |       |   |
 |       |       |   |--- （有）
-|          |       |
+|       |       |
 |       |       |--- 📄 Animation.meta               # Animation文件夹元数据
 |       |       |--- 📄 Assets.meta                  # Assets文件夹元数据
 |       |       |--- 📄 craftpix-895410-free-jungle-cartoon-....meta
