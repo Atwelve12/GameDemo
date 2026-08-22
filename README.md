@@ -1,3 +1,11 @@
+# Game Dome for our NTCompetition
+Yixuan Hanlu Liying Zonglian Zhixing Hongjun Zeyuan
+
+If only pinyin were universally used aroud the word.....
+
+
+# MyProject 项目目录结构
+```
 |
 |--- 📁 MyProject/                           # 项目根目录
 |   	|
@@ -39,8 +47,6 @@
 |   	|   	|--- 📄 TextMesh Pro.meta
 |   	|   	|--- 📄 TileMaterial.meta
 |   	|
-|   	|--- 📁 Perfab/                         # 预制体文件
-|   	|
 |   	|--- 📁 Library/                         # Unity缓存和导入资源（自动生成）
 |   	|   |
 |   	|   |--- （自动生成）
@@ -72,3 +78,5 @@
 |   	|--- 📄 MyProject.sln                    # Visual Studio解决方案文件 (3 KB)
 |   	|--- 📄 README.md                        # 项目说明文档 (1 KB)
 |   	|--- 📄 Unity2D.Sprite.Editor.csproj     # Sprite Editor项目文件 (67 KB)
+
+```
