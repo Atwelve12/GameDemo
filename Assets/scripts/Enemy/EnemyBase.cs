@@ -17,7 +17,7 @@ public class EnemyBase : MonoBehaviour
     [Header("Enemy 基础属性")]
     public float HPMax = 100f;
     public float HPNow = 100f;
-    public float AttackDamage = 10f;
+    public float AttackDamage;
 
     [Header("Enemy 待机")]
     public float idleTime = 2f;
@@ -344,7 +344,7 @@ public class EnemyBase : MonoBehaviour
         if (player != null && Mathf.Abs(transform.position.x - player.transform.position.x) <= AttackRange)
             {
                 // 调用玩家受伤方法
-                 player.GetComponent<PlayerAttackControl>()?.TakeDamage(10);
+                 player.GetComponent<AttackControl>()?.TakeDamage(AttackDamage);
             }
     }
 

@@ -13,13 +13,12 @@ public class PlayerMovement : MonoBehaviour
     public Transform groundCheckPoint;   
     public float groundCheckRadius = 0.2f; 
     public LayerMask groundLayer;       
-
     private Rigidbody2D rb;             
     private float moveInput;            
     private bool isGrounded;
 
     private Animator anim;
-
+    public bool isDead;
     //精灵渲染器
     private SpriteRenderer sprite;
     void Start()
@@ -31,6 +30,12 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        anim.SetBool("isDead", isDead);
+        if (isDead)
+        {
+            return;
+        }
+
         //  检测是否在地上
         isGrounded = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, groundLayer);
 
@@ -59,10 +64,11 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //攻击动画
-        if (Input.GetMouseButton (0))
+        if (Input.GetMouseButtonDown (0))
         {
             anim.SetTrigger("Attack");
         }
+        
     }
 
     void FixedUpdate()
@@ -71,6 +77,14 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
     }
 
-  
+    public void PlayerHurt ()
+    {
+        anim.SetTrigger("hurt");
+    }
+
+    public void PlayerDead()
+    {
+        isDead = true;
+    }
 
 }
