@@ -17,7 +17,7 @@ public class EnemyBase : MonoBehaviour
     [Header("Enemy 基础属性")]
     public float HPMax = 100f;
     public float HPNow = 100f;
-    public float AttackDamage;
+    public float AttackDamage = 10f;
 
     [Header("Enemy 待机")]
     public float idleTime = 2f;
@@ -30,6 +30,9 @@ public class EnemyBase : MonoBehaviour
     public float AttackRange = 1.5f;
     [HideInInspector]public float AttackTime = 1f;//攻击时间
     public float AttackWindup = 1f;//攻击前摇时间
+    public GameObject AttackBox;
+    public Transform AttackPoint1;
+    public Transform AttackPoint2;
 
 
     [Header("Enemy 移动")]
@@ -52,7 +55,11 @@ public class EnemyBase : MonoBehaviour
 
     [Header("Enemy 受击")]
     public float GetHitTime = 0.5f;
+    public bool isGetHit = false;
+    public float GetHitForce = 5f;
 
+    [Header("Enemy 死亡")]
+    public GameObject EnemyAndPosition;
 
     // Update is called once per frame
     public virtual void Update()
@@ -120,32 +127,17 @@ public class EnemyBase : MonoBehaviour
     }
 
     public virtual void PatrolUpdate()
-{
-    // 原有的巡逻点边界判断
-    if (isRight && transform.position.x >= right.position.x)
     {
-        ChangeState(EnemyState.Idle);
-    }
-    else if (!isRight && transform.position.x <= left.position.x)
-    {
-        ChangeState(EnemyState.Idle);
-    }
 
-    // 前方障碍物检测
-    float checkDistance = 0.5f; // 射线长度，根据敌人尺寸调整
-    Vector2 direction = isRight ? Vector2.right : Vector2.left;
-    Vector2 origin = transform.position;
-
-    // 使用 LayerMask 只检测障碍物层（避免检测到敌人自身）
-    LayerMask obstacleMask = LayerMask.GetMask("Obstacle"); // 需要提前创建 Obstacle 层
-    RaycastHit2D hit = Physics2D.Raycast(origin, direction, checkDistance, obstacleMask);
-
-    if (hit.collider != null)
-    {
-        // 如果检测到障碍物，进入 Idle 状态，之后 Idle2Patrol 会自动翻转方向
-        ChangeState(EnemyState.Idle);
+        if (isRight && transform.position.x >= right.position.x)
+        {
+            ChangeState(EnemyState.Idle);
+        }
+        else if (!isRight && transform.position.x <= left.position.x)
+        {
+            ChangeState(EnemyState.Idle);
+        }
     }
-}
     public virtual void PatrolExit()
     {
         enemyAnimator.SetBool("IsRun",false);
@@ -204,7 +196,7 @@ public class EnemyBase : MonoBehaviour
 
     public virtual void AttackUpdate()
     {
-        if (canAttack)
+        if (canAttack && !isAttacking)
         {
             isAttacking = true;
             canAttack = false;
@@ -229,23 +221,48 @@ public class EnemyBase : MonoBehaviour
     public virtual void GetHitEnter()
     {
         canMove = false;
-
+        enemyAnimator.SetBool("GetHit", true);
+        // enemyAnimator.SetBool("isRun", false);
+        Invoke(nameof(GetHitOut), GetHitTime);
+        if(player != null)
+        {
+            if (transform.position.x < player.transform.position.x)
+            {
+                rb.AddForce(new Vector2(-GetHitForce, 0));
+            }
+            else
+            {
+                rb.AddForce(new Vector2(GetHitForce, 0));
+            }
+        }
     }
 
     public virtual void GetHitUpdate()
     {
+        if (!isGetHit)
+        {
+            isGetHit = true;
+
+        }
         
+
     }
 
     public virtual void GetHitExit()
     {
         canMove = true;
+        isGetHit = false;
+        enemyAnimator.SetBool("GetHit", false);
+        CancelInvoke(nameof(GetHitOut));
     }   
 
     //死亡
     public virtual void DeathEnter()
     {
-
+        canMove = false;
+        enemyAnimator.SetBool("isRun", false);
+        enemyAnimator.SetTrigger("IsDead");
+        Destroy(EnemyAndPosition, 5f);
     }
     public virtual void DeathUpdate()
     {
@@ -309,18 +326,25 @@ public class EnemyBase : MonoBehaviour
     public virtual void Idle2Patrol()
     {
         isRight = !isRight;
-        //animation
         sr.flipX = !isRight;
         ChangeState(EnemyState.Patrol);       
     }
 
     public virtual void FindPlayer(GameObject mainPlayer)
     {
+        if(currentState == EnemyState.Death)
+        {
+            return;
+        }
         player = mainPlayer;
         ChangeState(EnemyState.Chase);
     }
     public virtual void OutPlayer()
     {
+        if(currentState == EnemyState.Death)
+        {
+            return;
+        }
         ChangeState(EnemyState.Patrol);
     }
 
@@ -328,7 +352,6 @@ public class EnemyBase : MonoBehaviour
     {
         enemyAnimator.SetTrigger("Attack1");
         Invoke(nameof(AttackCooldown), AttackTime);
-
     }
 
     public virtual void AttackCooldown()
@@ -337,15 +360,19 @@ public class EnemyBase : MonoBehaviour
         canAttack = true;
     }
 
-    public virtual void AttackPlayer()
+    public virtual void AddAttackBox()
     {
-        // 在这里执行伤害结算逻辑
-        // 例如检测玩家是否在攻击范围内，然后让玩家扣血
-        if (player != null && Mathf.Abs(transform.position.x - player.transform.position.x) <= AttackRange)
-            {
-                // 调用玩家受伤方法
-                 player.GetComponent<AttackControl>()?.TakeDamage(AttackDamage);
-            }
+        if (isRight)
+        {
+            GameObject go = Instantiate(AttackBox,AttackPoint1.position,AttackPoint1.rotation,transform);
+            go.transform.localScale = AttackPoint1.localScale;
+        }
+        else
+        {
+            GameObject go = Instantiate(AttackBox,AttackPoint2.position,AttackPoint2.rotation,transform);
+            go.transform.localScale = AttackPoint2.localScale;
+        }
+        
     }
 
     public virtual void GetHit(float damage)
@@ -354,16 +381,24 @@ public class EnemyBase : MonoBehaviour
         {
             // 扣血逻辑
             HPNow -= damage;
-            //if (HPNow <= 0)
-            //{
-            //    ChangeState(EnemyState.Death);
-            //}
-            //else
-            //{
+            if (HPNow <= 0)
+            {
+               ChangeState(EnemyState.Death);
+            }
+            else
+            {
                 ChangeState(EnemyState.GetHit);
-             //}
+            }
         }
 
 
     }
+
+    public virtual void GetHitOut()
+    {
+        isGetHit = false;
+        enemyAnimator.SetBool("GetHit", false);
+        ChangeState(EnemyState.Patrol);
+    }
+
 }
