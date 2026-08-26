@@ -81,6 +81,8 @@ public class ResourseManager : MonoBehaviour
             +
             count
         );
+        //同步服务器
+
         return true;
     }
     //查询指定ID资源当前数量
