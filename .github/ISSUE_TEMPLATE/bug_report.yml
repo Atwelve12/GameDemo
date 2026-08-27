@@ -1,0 +1,47 @@
+name: Bug Report
+description: 报告可复现的游戏问题
+title: "[Bug] "
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: 问题描述
+      description: 请清楚说明发生了什么
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 复现步骤
+      description: 请按顺序列出可稳定复现问题的步骤
+      placeholder: |
+        1. 打开……
+        2. 点击……
+        3. 观察到……
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 预期行为
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: 版本信息
+      description: 请填写 Unity 版本以及游戏版本
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: 运行环境
+      description: 请填写操作系统、设备及其他相关环境信息
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: 日志或截图
+      description: 如有，请附上日志、截图或录屏
