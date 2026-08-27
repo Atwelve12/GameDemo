@@ -1,6 +1,6 @@
 ## 变更说明
 
-<!-- 说明本 PR 的目的和主要改动。 -->
+<!-- 说明本 PR 的目的和主要改动，请遵循 Angular commit message guidelines -->
 
 ## 关联 Issue
 

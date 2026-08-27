@@ -1,6 +1,6 @@
 name: Bug Report
 description: 报告可复现的游戏问题
-title: "[Bug] "
+title: "fix():"
 body:
   - type: textarea
     id: description

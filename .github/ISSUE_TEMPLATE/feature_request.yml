@@ -1,6 +1,6 @@
 name: Feature Request
 description: 提议新功能或体验改进
-title: "[Feature] "
+title: "feat():"
 body:
   - type: textarea
     id: background
