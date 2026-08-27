@@ -140,3 +140,4 @@ InitTestScene*.unity*
 *.hdr
 *.pdf
 *.raw
+/Assets/TextMesh Pro
