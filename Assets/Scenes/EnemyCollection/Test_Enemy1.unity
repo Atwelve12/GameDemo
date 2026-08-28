@@ -238,13 +238,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b45787def6bd4546b6bdcb32a6749cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
-  jumpForce: 5.5
-  groundCheckPoint: {fileID: 118959872}
-  groundCheckRadius: 0.2
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
 --- !u!70 &283144556
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -18269,7 +18262,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HPMax: 100
   HPNow: 100
-  AttackDamage: 1
+  AttackDamage: 10
   idleTime: 1
   sr: {fileID: 1925866878}
   enemyAnimator: {fileID: 1925866877}
