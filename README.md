@@ -10,8 +10,9 @@
 ```text
 GameDemo/
 ├── Assets/
+│   ├── Animation/              # 动画
 │   ├── Prefab/                 # 预制体
-│   ├── Resources/              # 图片、动画和其他游戏资源
+│   ├── Resources/              # 图片、音乐和其他游戏资源
 │   ├── Scenes/
 │   │   ├── GameProcess/        # 游戏主要流程场景
 │   │   └── EnemyCollection/    # 敌人开发
