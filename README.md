@@ -1,82 +1,44 @@
 # Game Dome for our NTCompetition
-Yixuan Hanlu Liying Zonglian Zhixing Hongjun Zeyuan
 
-If only pinyin were universally used aroud the word.....
+一个使用 Unity 开发的 2D 横版动作游戏 Demo
+
+> 🚧施工中，待进一步补充游戏🎮描述
 
 
-# MyProject 项目目录结构
+## 项目结构
+
+```text
+GameDemo/
+├── Assets/
+│   ├── Prefab/                 # 预制体
+│   ├── Resources/              # 图片、动画和其他游戏资源
+│   ├── Scenes/
+│   │   ├── GameProcess/        # 游戏主要流程场景
+│   │   └── EnemyCollection/    # 敌人开发
+│   ├── scripts/
+│   │   ├── Enemy/              # 敌人行为与状态机
+│   │   ├── Player/             # 玩家移动、攻击和生命值
+│   │   ├── Scene/              # 场景切换
+│   │   └── UI/                 # 游戏界面
+│   └── TextMesh Pro/           # TextMesh Pro 资源
+├── Packages/                   # Unity 包依赖
+├── ProjectSettings/            # Unity 项目配置
+├── .github/                    # Issue、PR 模板及自动化流程
+├── LICENSE
+└── README.md
 ```
-|
-|--- 📁 MyProject/                           # 项目根目录
-|   	|
-|   	|--- 📁 Assets/                          # 主要资源目录
-|   	|   	|
-|   	|   	|--- 📁 Animation/                   # 动画相关资源
-|   	|   	|   |
-|   	|   	|   |--- （有）
-|   	|   	|--- 📁 Assets/                     #素材
-|		|	    |	|
-|		|	    |	|---（手动加进去）
-|   	|   	|--- 📁 craftpix-895410-free-jungle-cartoon-.../   # 丛林卡通风格资源包
-|   	|   	|   |
-|   	|   	|   |--- （有）
-|   	|   	|
-|   	|   	|--- 📁 Scenes/                      # 场景文件
-|   	|   	|   |
-|   	|   	|   |--- （有）
-|   	|   	|
-|   	|   	|--- 📁 scripts/                     # 脚本代码
-|   	|   	|   |
-|   	|   	|   |--- （有）
-|   	|   	|
-|   	|   	|--- 📁 TextMesh Pro/                # TextMesh Pro文本渲染插件
-|   	|   	|   |
-|   	|   	|   |--- （有）
-|   	|   	|
-|   	|   	|--- 📁 TileMaterial/                # 瓦片地图材质
-|  		|   	|   |
-|   	|   	|   |--- （有）
-|  		|   	|
-|   	|   	|--- 📄 Animation.meta               # Animation文件夹元数据
-|   	|   	|--- 📄 Assets.meta                  # Assets文件夹元数据
-|   	|   	|--- 📄 craftpix-895410-free-jungle-cartoon-....meta
-|   	|   	|--- 📄 GroundPalette.prefab         # 地面调色板预制体 (50 KB)
-|   	|   	|--- 📄 GroundPalette.prefab.meta
-|   	|   	|--- 📄 Scenes.meta
-|   	|   	|--- 📄 scripts.meta
-|   	|   	|--- 📄 TextMesh Pro.meta
-|   	|   	|--- 📄 TileMaterial.meta
-|   	|
-|   	|--- 📁 Library/                         # Unity缓存和导入资源（自动生成）
-|   	|   |
-|   	|   |--- （自动生成）
-|   	|
-|   	|--- 📁 Logs/                            # 日志文件（自动生成，不推送）
-|   	|   |
-|   	|   |--- （自动生成）
-|   	|
-|   	|--- 📁 obj/                             # 编译中间文件（自动生成，不推送）
-|   	|   |
-|   	|   |--- （自动生成）
-|   	|
-|   	|--- 📁 Packages/                        # 项目包依赖
-|   	|   |
-|   	|   |--- （有）
-|   	|
-|   	|--- 📁 ProjectSettings/                 # 项目设置
-|   	|   |
-|   	|   |--- （有）
-|   	|
-|   	|--- 📁 UserSettings/                    # 用户个性化设置
-|   	|   |
-|   	|   |--- （可有可无）
-|   	|
-|   	|--- 📄 .gitignore                       # Git忽略文件 (3 KB)
-|   	|--- 📄 .vscode/                         # VS Code工作区配置
-|   	|--- 📄 Assembly-CSharp.csproj           # C#项目文件 (73 KB)
-|   	|--- 📄 LICENSE                          # 许可证文件 (2 KB)
-|   	|--- 📄 MyProject.sln                    # Visual Studio解决方案文件 (3 KB)
-|   	|--- 📄 README.md                        # 项目说明文档 (1 KB)
-|   	|--- 📄 Unity2D.Sprite.Editor.csproj     # Sprite Editor项目文件 (67 KB)
 
-```
+
+## 团队成员
+
+Yixuan、Hanlu、Liying、Zonglian、Zhixing、Zeyuan、Hongjun
+
+## 贡献
+
+提交问题或功能建议时，请使用仓库提供的 Issue 模板
+
+提交 Pull Request 时，请填写变更说明、关联 Issue 和测试方式，并确保所有自动校验通过
+
+## License
+
+本项目使用 [MIT License](./LICENSE)。
