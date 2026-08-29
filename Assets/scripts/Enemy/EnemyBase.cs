@@ -17,7 +17,7 @@ public class EnemyBase : MonoBehaviour
     [Header("Enemy 基础属性")]
     public float HPMax = 100f;
     public float HPNow = 100f;
-    public float AttackDamage;
+    public float AttackDamage = 10f;
 
     [Header("Enemy 待机")]
     public float idleTime = 2f;
@@ -368,17 +368,24 @@ public class EnemyBase : MonoBehaviour
 
     public virtual void AddAttackBox()
     {
+        GameObject go;
         if (isRight)
         {
-            GameObject go = Instantiate(AttackBox,AttackPoint1.position,AttackPoint1.rotation,transform);
+            go = Instantiate(AttackBox,AttackPoint1.position,AttackPoint1.rotation,transform);
             go.transform.localScale = AttackPoint1.localScale;
         }
         else
         {
-            GameObject go = Instantiate(AttackBox,AttackPoint2.position,AttackPoint2.rotation,transform);
+            go = Instantiate(AttackBox,AttackPoint2.position,AttackPoint2.rotation,transform);
             go.transform.localScale = AttackPoint2.localScale;
         }
-        
+
+        EnemyAttackBox attackBox = go.GetComponent<EnemyAttackBox>();
+
+        if (attackBox != null)
+        {
+            attackBox.damage = AttackDamage;
+        }
     }
 
     public virtual void GetHit(float damage)

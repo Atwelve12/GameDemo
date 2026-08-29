@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class EnemyAttackBox : MonoBehaviour
 {
-    public float damage = 10f;
+
+    public float damage;
     public float destriyTime = 0.5f;
 
     void Start()
