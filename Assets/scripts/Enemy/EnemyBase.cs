@@ -54,7 +54,7 @@ public class EnemyBase : MonoBehaviour
     }
 
     [Header("Enemy 受击")]
-    public float GetHitTime = 0.5f;
+   
     public bool isGetHit = false;
     public float GetHitForce = 5f;
 
@@ -89,6 +89,12 @@ public class EnemyBase : MonoBehaviour
 
     public virtual void FixedUpdate()
     {
+        /////
+            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+            {
+                GetHit(10f); // 传入一个伤害值，这里假设为 10
+            }
+        ////
         if (canMove)
         {
             rb.velocity = new Vector2(isRight ? speed : -speed, rb.velocity.y);
@@ -222,8 +228,9 @@ public class EnemyBase : MonoBehaviour
     {
         canMove = false;
         enemyAnimator.SetBool("GetHit", true);
+        enemyAnimator.SetTrigger("GetHit_Trigger");
         // enemyAnimator.SetBool("isRun", false);
-        Invoke(nameof(GetHitOut), GetHitTime);
+
         if(player != null)
         {
             if (transform.position.x < player.transform.position.x)
@@ -253,7 +260,6 @@ public class EnemyBase : MonoBehaviour
         canMove = true;
         isGetHit = false;
         enemyAnimator.SetBool("GetHit", false);
-        CancelInvoke(nameof(GetHitOut));
     }   
 
     //死亡
@@ -262,7 +268,7 @@ public class EnemyBase : MonoBehaviour
         canMove = false;
         enemyAnimator.SetBool("isRun", false);
         enemyAnimator.SetTrigger("IsDead");
-        Destroy(EnemyAndPosition, 5f);
+        
     }
     public virtual void DeathUpdate()
     {
@@ -377,7 +383,7 @@ public class EnemyBase : MonoBehaviour
 
     public virtual void GetHit(float damage)
     {
-        if (currentState != EnemyState.Death)
+        if (currentState != EnemyState.Death && !isGetHit)
         {
             // 扣血逻辑
             HPNow -= damage;
@@ -398,7 +404,11 @@ public class EnemyBase : MonoBehaviour
     {
         isGetHit = false;
         enemyAnimator.SetBool("GetHit", false);
-        ChangeState(EnemyState.Patrol);
+        ChangeState(EnemyState.Chase);
     }
 
+    public virtual void Delete()
+    {
+      Destroy(EnemyAndPosition,0.1f);
+    }
 }
