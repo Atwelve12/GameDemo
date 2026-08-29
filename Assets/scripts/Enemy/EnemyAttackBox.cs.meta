@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/scripts/charactor/Player/MoveAndJump.cs.meta
+guid: 867d4d36bfab99a47b9a1dac75f6b0e1
+========
 guid: b3582dbb927118a48b7aef57319b5a29
+>>>>>>>> main:Assets/scripts/Enemy/EnemyAttackBox.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
