@@ -1,0 +1,52 @@
+name: PR Validation
+
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize]
+
+permissions: {}
+
+jobs:
+  validate-pr-template:
+    name: PR Template Validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate required PR information
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          python3 - <<'PY'
+          import os
+          import re
+          import sys
+
+          body = re.sub(r"<!--.*?-->", "", os.environ.get("PR_BODY", ""), flags=re.S)
+          errors = []
+
+          def section(title):
+              match = re.search(
+                  rf"(?ms)^##\s+{re.escape(title)}\s*$\n(.*?)(?=^##\s+|\Z)", body
+              )
+              if not match:
+                  errors.append(f"缺少“{title}”章节")
+                  return ""
+              content = match.group(1).strip()
+              meaningful = [
+                  line for line in content.splitlines()
+                  if line.strip() and not re.fullmatch(r"\s*-\s*\[\s*\].*", line)
+              ]
+              if not meaningful:
+                  errors.append(f"“{title}”章节没有填写有效内容")
+              return content
+
+          section("变更说明")
+          issue = section("关联 Issue")
+          section("测试方式")
+          if issue and not re.search(r"#\d+|https://github\.com/\S+/\S+/issues/\d+", issue):
+              errors.append("“关联 Issue”必须包含 #编号 或完整的 GitHub Issue 链接")
+
+          if errors:
+              print("PR 信息校验失败：\n- " + "\n- ".join(errors))
+              sys.exit(1)
+          print("PR 信息校验通过")
+          PY
