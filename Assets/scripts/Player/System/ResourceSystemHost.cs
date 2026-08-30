@@ -13,6 +13,12 @@ public class ResourceSystemHost : MonoBehaviour
     {get;private set;}
     private void Awake()
     {
+        //检查
+        if (apiSettings == null)
+        {
+            Debug.LogError("ApiSettings未配置");
+            return;
+        }
         //创建网络模块
         Network = new ResourceNetwork(apiSettings);
         // 创建资源管理器
@@ -24,11 +30,12 @@ public class ResourceSystemHost : MonoBehaviour
     }
     private void Start()
     {
+        Debug.Log("开始加载服务器资源");
         //启动服务器资源加载
         StartCoroutine(Network.GetResource(Manager));
     }
-    public void AddResourceToServer(ResourseData resourse)
+    public void AddResourceToServer(ResourceData data)
     {
-        StartCoroutine(Network.SendResource(resourse));
+        StartCoroutine(Network.SendResource(data,Manager));
     }
 }

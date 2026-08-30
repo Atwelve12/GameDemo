@@ -60,10 +60,10 @@ public class InventoryUI : MonoBehaviour
             Destroy(child.gameObject);
         }
         //从管理器获取最新背包资源列表
-        List<ResourseData> resourses = manager.GetAllResource();
-        Debug.Log("UI读取资源数量:" + resourses.Count);
+        List<ResourceData> resources = manager.GetAllResource();
+        Debug.Log("UI读取资源数量:" + resources.Count);
         //遍历资源，实例化格子并填充数据
-        foreach (ResourseData resourse in resourses)
+        foreach (ResourceData resource in resources)
         {
             //生成格子预制体
             GameObject slot = Instantiate(slotPrefab);
@@ -76,7 +76,7 @@ public class InventoryUI : MonoBehaviour
             //获取格子上的UI组件
             InventorySlotUI ui = slot.GetComponent<InventorySlotUI>();
             //把资源数据传递给格子渲染文字
-            ui.SetData(resourse,iconConfig);
+            ui.SetData(resource,iconConfig);
         }
     }
 }

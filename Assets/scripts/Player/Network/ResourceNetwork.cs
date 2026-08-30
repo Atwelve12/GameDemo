@@ -8,7 +8,7 @@ public class ResourceNetwork
     public ResourceNetwork(ApiSettings apiSettings)
     {  this.apiSettings = apiSettings; }
     //协程：POST请求，上传新增资源信息到后端
-    public IEnumerator SendResource(ResourseData resource)
+    public IEnumerator SendResource(ResourceData resource,ResourceManager manager)
     {
         //后端新增资源API地址
         string fullUrl = apiSettings.baseUrl + "/resource/add";
@@ -29,6 +29,12 @@ public class ResourceNetwork
         if (request.result == UnityWebRequest.Result.Success)
         {
             Debug.Log("服务器保存成功：" + request.downloadHandler.text);
+            ResourceListData data =JsonUtility.FromJson<ResourceListData>(request.downloadHandler.text);
+            if (data != null) 
+            { 
+               
+                manager.UpdateFromServer(data.resources); 
+            }   
         }
         else
         {
@@ -48,7 +54,7 @@ public class ResourceNetwork
         {
             string json = request.downloadHandler.text;
             Debug.Log(
-                "服务器资源数据：" + json
+                "服务器返回：" + json
             );
             ResourceListData data = JsonUtility.FromJson<ResourceListData>(json);
             //把服务器下发的数据传递给背包管理器，覆盖本地背包

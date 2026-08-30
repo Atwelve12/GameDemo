@@ -2,16 +2,15 @@
 using UnityEngine;
 public class ResourceManager
 {   //玩家拥有的资源
-    public List<ResourseData> resourses = new List<ResourseData>();
+    public List<ResourceData> resources = new List<ResourceData>();
     public int maxSlot = 10;
     //资源数据库：存放所有资源静态配置
     public ResourceDatabase database;
     //服务器通信：负责客户端和服务端资源数据同步
-    public ResourceNetwork network;
     public bool IsInitialized { get; private set;  }
-    private System.Action<ResourseData> syncToServer;
+    private System.Action<ResourceData> syncToServer;
     //构造函数
-    public ResourceManager(ResourceDatabase database, System.Action<ResourseData> syncToServer)
+    public ResourceManager(ResourceDatabase database, System.Action<ResourceData> syncToServer)
     {
         this.database = database;
         this.syncToServer = syncToServer;
@@ -19,56 +18,22 @@ public class ResourceManager
     //判断背包是否满
     public bool IsFull()
     {
-        return resourses.Count >= maxSlot;
+        return resources.Count >= maxSlot;
     }
-    //增加资源
-    public void AddResource(int id, int count)
+    //请求服务器增加资源
+    public void RequestAddResource(int id,int count)
     {
-        Debug.Log(
-            "AddResource调用 id:"
-            + id
-            + " count:"
-            + count
-        );
-        //在背包列表中查找已有该ID资源
-        ResourseData resource = resourses.Find(
-            r => r.id == id
-        );
-        //背包里没有则新建一条资源数据
-        if (resource == null)
-        {
-            Debug.Log("没有找到资源，创建新资源");
-            resource = new ResourseData();
-            resource.id = id;
-            // 从数据库读取资源名称
-            ResourceConfig config = database.GetResource(id);
-            if (config != null)
-            {
-                resource.name = config.itemName;
-            }
-            else
-            {
-                resource.name = "未知资源";
-            }
-            resource.count = 0;
-            resourses.Add(resource);
-        }
-        //增加数量
-        resource.count += count;
-        //向服务器同步本次新增资源
-        if (network != null)
-        {
-            ResourseData data = new ResourseData();
-            data.id = resource.id;
-            data.name = resource.name;
-            data.count = count;
-            syncToServer?.Invoke(data);
-        }
+        Debug.Log("请求增加资源id：" + id + "数量:" + count);
+        ResourceData data = new ResourceData();
+        data.id= id;
+        data.count = count;
+        //通知发送请求
+        syncToServer?.Invoke(data);
     }
-    //减少资源，返回bool代表操作是否成功
+    //TODO：减少资源，返回bool代表操作是否成功
     public bool RemoveResource(int id, int count)
     {
-        ResourseData resourse = resourses.Find(r => r.id == id);
+        ResourceData resourse = resources.Find(r => r.id == id);
         //背包不存在该资源
         if (resourse == null)
         { return false; }
@@ -86,14 +51,13 @@ public class ResourceManager
             +
             count
         );
-        //同步服务器
-
         return true;
+        //TODO：同步服务器
     }
     //查询指定ID资源当前数量
     public int GetResourceCount(int id)
     {
-        ResourseData resourse = resourses.Find(
+        ResourceData resourse = resources.Find(
             r => r.id == id);
         if (resourse != null)
         {
@@ -108,18 +72,18 @@ public class ResourceManager
         return GetResourceCount(id) >= needCount;
     }
     //读取背包内全部资源
-    public List<ResourseData> GetAllResource()
+    public List<ResourceData> GetAllResource()
     {
-        return resourses;
+        return resources;
     }
     //从服务器加载资源，覆盖本地背包
-    public void LoadFromServer(List<ResourseData> serverResources)
+    public void LoadFromServer(List<ResourceData> serverResources)
     {
-        resourses = serverResources;
+        resources = serverResources;
         IsInitialized = true;
         Debug.Log("服务器资源加载完成");
         //根据数据库刷新资源名称
-        foreach (ResourseData resource in resourses)
+        foreach (ResourceData resource in resources)
         {
             ResourceConfig config =
                 database.GetResource(resource.id);
@@ -129,5 +93,35 @@ public class ResourceManager
             }
         }
     }
-    
+    //服务器返回最新资源后更新客户端
+    public void UpdateFromServer(List<ResourceData> serverResources)
+    {
+        Debug.Log(
+       "进入UpdateFromServer"
+        );
+        resources = serverResources;
+        //debug
+        Debug.Log("客户端当前资源数量:" + resources.Count);
+        foreach (ResourceData resource in resources)
+        {
+            Debug.Log(
+                resource.name
+                +
+                ":"
+                +
+                resource.count
+            );
+        }
+        //
+        foreach (ResourceData resource in resources)
+        {
+            ResourceConfig config =
+                database.GetResource(resource.id);
+            if (config != null)
+            {
+                resource.name = config.itemName;
+            }
+        }
+        Debug.Log("客户端资源更新完成");
+    }
 }

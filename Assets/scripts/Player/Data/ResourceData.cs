@@ -1,7 +1,7 @@
 ﻿//玩家身上的东西
 using System;
 [Serializable]
-public class ResourseData
+public class ResourceData
 {
     //物品ID关联ResourceConfig配置
     public int id;

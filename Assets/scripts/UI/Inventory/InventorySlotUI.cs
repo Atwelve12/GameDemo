@@ -13,7 +13,7 @@ public class InventorySlotUI : MonoBehaviour
     public Image iconImage;
 
     // 外部调用入口：给格子填充资源数据，刷新UI显示
-    public void SetData(ResourseData data, InventoryIconConfig config)
+    public void SetData(ResourceData data, InventoryIconConfig config)
     {
         //安全空值判断，防止组件未拖拽出现空引用报错
         if (nameText != null)

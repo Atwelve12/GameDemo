@@ -48,7 +48,7 @@ public class TreasureChest : MonoBehaviour
         }
         foreach(ChestReward reward in rewards)
         {
-            manager.AddResource(reward.resourceID,reward.amount);
+            manager.RequestAddResource(reward.resourceID,reward.amount);
         }
         Debug.Log("宝箱开启");
         Destroy(gameObject,openChestClip != null ? openChestClip.length : 0.1f);

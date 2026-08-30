@@ -6,5 +6,5 @@ using System.Collections.Generic;
 public class ResourceListData
 {
     //资源泛型列表，存放多条ResourceData对象
-    public List<ResourseData> resources = new List<ResourseData>();
+    public List<ResourceData> resources = new List<ResourceData>();
 }
