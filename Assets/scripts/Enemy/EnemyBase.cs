@@ -89,12 +89,7 @@ public class EnemyBase : MonoBehaviour
 
     public virtual void FixedUpdate()
     {
-        /////
-            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
-            {
-                GetHit(10f); // 传入一个伤害值，这里假设为 10
-            }
-        ////
+        
         if (canMove)
         {
             rb.velocity = new Vector2(isRight ? speed : -speed, rb.velocity.y);
