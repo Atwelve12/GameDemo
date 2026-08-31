@@ -140,8 +140,5 @@ InitTestScene*.unity*
 *.hdr
 *.pdf
 *.raw
-# api配置资源
-Assets/**/ApiSettings.asset
-Assets/**/ApiSettings.asset.meta
 *.vscode
 
