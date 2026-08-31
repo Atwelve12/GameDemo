@@ -19,6 +19,7 @@ public class ResourceSystemHost : MonoBehaviour
             Debug.LogError("ApiSettings未配置");
             return;
         }
+        if (database == null) { Debug.LogError("ResourceDatabase未配置"); return; }
         //创建网络模块
         Network = new ResourceNetwork(apiSettings);
         // 创建资源管理器

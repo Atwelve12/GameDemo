@@ -6,9 +6,9 @@ public class ResourceNetwork
     private ApiSettings apiSettings;
     //背包管理器引用，网络拿到服务器数据后交给Manager更新背包
     public ResourceNetwork(ApiSettings apiSettings)
-    {  this.apiSettings = apiSettings; }
+    { this.apiSettings = apiSettings; }
     //协程：POST请求，上传新增资源信息到后端
-    public IEnumerator SendResource(ResourceData resource,ResourceManager manager,System.Action<bool>callback
+    public IEnumerator SendResource(ResourceData resource, ResourceManager manager, System.Action<bool> callback
         )
     {
         //后端新增资源API地址
@@ -27,46 +27,55 @@ public class ResourceNetwork
         //异步网格的核心，暂停当前协程直到网络往返完成（不阻塞游戏进程）
         yield return request.SendWebRequest();
         //判断请求结果
-        if (request.result == UnityWebRequest.Result.Success)
+        //POST
+        if (request.result != UnityWebRequest.Result.Success)
         {
-            //重新拉取服务器最新资源
-            yield return GetResource(manager);
-            callback?.Invoke(true);
-        }
-        else
-        {
+            Debug.LogError("服务器保存失败：" + request.error);
             callback?.Invoke(false);
+            yield break;
         }
+        //重新拉取服务器最新资源
+        bool getSuccess = false;
+        yield return GetResource(manager, (success) => { getSuccess = success; });
+        //结果
+        if (getSuccess) { Debug.Log("服务器资源同步成功"); }
+        else { Debug.LogError("服务器保存成功，但获取最新资源失败"); }
+        callback?.Invoke(getSuccess);
     }
     //协程：GET请求，获取玩家全部背包资源
-    public IEnumerator GetResource(ResourceManager manager)
+    public IEnumerator GetResource(ResourceManager manager, System.Action<bool> callback = null)
     {
-        string fullUrl =apiSettings.baseUrl+ "/resource/list";
+        string fullUrl = apiSettings.baseUrl + "/resource/list";
         //快速创建GET请求
         UnityWebRequest request = UnityWebRequest.Get(fullUrl);
         yield return request.SendWebRequest();
         Debug.Log(request.result);
+        //GET失败
+        if (request.result != UnityWebRequest.Result.Success)
+        {
+            callback?.Invoke(false);
+            yield break;
+        }
+        //GET成功
         //将后端返回的JSON反序列化为 ResourceListData 对象
-        if (request.result == UnityWebRequest.Result.Success)
+        string json = request.downloadHandler.text;
+        Debug.Log(
+            "服务器返回：" + json
+        );
+        ResourceListData data = JsonUtility.FromJson<ResourceListData>(json);
+        //把服务器下发的数据解析
+        if (data == null || data.resources == null)
         {
-            string json = request.downloadHandler.text;
-            Debug.Log(
-                "服务器返回：" + json
-            );
-            ResourceListData data = JsonUtility.FromJson<ResourceListData>(json);
-            //把服务器下发的数据传递给背包管理器，覆盖本地背包
-            if (data != null)
-            {
-                Debug.Log("资源数量：" + data.resources.Count);
-                if (manager != null)
-                {
-                    manager.LoadFromServer(data.resources);
-                }
-            }
+            Debug.LogError("服务器资源解析失败");
+            callback?.Invoke(false);
+            yield break;
         }
-        else
-        {
-            Debug.LogError(request.error);
-        }
+        //更新客户端
+        manager.LoadFromServer(data.resources);
+        Debug.Log("客户端资源更新完成");
+        callback?.Invoke(true);
+
     }
+
+
 }
