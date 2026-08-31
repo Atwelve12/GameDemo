@@ -34,8 +34,8 @@ public class ResourceSystemHost : MonoBehaviour
         //启动服务器资源加载
         StartCoroutine(Network.GetResource(Manager));
     }
-    public void AddResourceToServer(ResourceData data)
+    public void AddResourceToServer(ResourceData data,System.Action<bool> callback)
     {
-        StartCoroutine(Network.SendResource(data,Manager));
+        StartCoroutine(Network.SendResource(data,Manager,callback));
     }
 }

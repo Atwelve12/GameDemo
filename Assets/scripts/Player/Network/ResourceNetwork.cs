@@ -8,7 +8,8 @@ public class ResourceNetwork
     public ResourceNetwork(ApiSettings apiSettings)
     {  this.apiSettings = apiSettings; }
     //协程：POST请求，上传新增资源信息到后端
-    public IEnumerator SendResource(ResourceData resource,ResourceManager manager)
+    public IEnumerator SendResource(ResourceData resource,ResourceManager manager,System.Action<bool>callback
+        )
     {
         //后端新增资源API地址
         string fullUrl = apiSettings.baseUrl + "/resource/add";
@@ -28,17 +29,13 @@ public class ResourceNetwork
         //判断请求结果
         if (request.result == UnityWebRequest.Result.Success)
         {
-            Debug.Log("服务器保存成功：" + request.downloadHandler.text);
-            ResourceListData data =JsonUtility.FromJson<ResourceListData>(request.downloadHandler.text);
-            if (data != null) 
-            { 
-               
-                manager.UpdateFromServer(data.resources); 
-            }   
+            //重新拉取服务器最新资源
+            yield return GetResource(manager);
+            callback?.Invoke(true);
         }
         else
         {
-            Debug.LogError(request.error);
+            callback?.Invoke(false);
         }
     }
     //协程：GET请求，获取玩家全部背包资源
