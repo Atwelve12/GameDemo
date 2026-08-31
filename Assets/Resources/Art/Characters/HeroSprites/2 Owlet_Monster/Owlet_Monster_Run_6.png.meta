@@ -113,10 +113,10 @@ TextureImporter:
       name: Owlet_Monster_Run_6_0
       rect:
         serializedVersion: 2
-        x: 6
-        y: 1
-        width: 20
-        height: 25
+        x: 0
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,8 +124,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f0aa16f15f9f57745964f5add263a8cb
-      internalID: -1568128254
+      spriteID: bb34c1a3a8779f047ad111e5bf479910
+      internalID: -1200584667
       vertices: []
       indices: 
       edges: []
@@ -134,10 +134,10 @@ TextureImporter:
       name: Owlet_Monster_Run_6_1
       rect:
         serializedVersion: 2
-        x: 37
-        y: 1
-        width: 21
-        height: 25
+        x: 32
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,8 +145,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 98ad27f02995ef64e82094ecc7f9a594
-      internalID: 176810189
+      spriteID: f83c42aefcf3e8f43bfebb0cff5f0dd9
+      internalID: -1252222180
       vertices: []
       indices: 
       edges: []
@@ -155,10 +155,10 @@ TextureImporter:
       name: Owlet_Monster_Run_6_2
       rect:
         serializedVersion: 2
-        x: 69
+        x: 64
         y: 0
-        width: 21
-        height: 24
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,8 +166,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eb08c9110b656f8459f6f920c87ca327
-      internalID: 511424259
+      spriteID: 44e2c2b91252d3e49a5a8426c50c3a05
+      internalID: 1385048644
       vertices: []
       indices: 
       edges: []
@@ -176,10 +176,10 @@ TextureImporter:
       name: Owlet_Monster_Run_6_3
       rect:
         serializedVersion: 2
-        x: 102
-        y: 1
-        width: 20
-        height: 25
+        x: 96
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,8 +187,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3717cc5d38f067a4ebf3772b8c400309
-      internalID: -1200296710
+      spriteID: 6d6fa008332a9ae45b6117007f5905ca
+      internalID: 1862897915
       vertices: []
       indices: 
       edges: []
@@ -197,10 +197,10 @@ TextureImporter:
       name: Owlet_Monster_Run_6_4
       rect:
         serializedVersion: 2
-        x: 133
-        y: 1
-        width: 21
-        height: 25
+        x: 128
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -208,8 +208,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ffe9e3425164af346bc2800db7e0d8d0
-      internalID: 471024323
+      spriteID: baa18dd69bb8a94479d362b0b02bcce6
+      internalID: 565427454
       vertices: []
       indices: 
       edges: []
@@ -218,10 +218,10 @@ TextureImporter:
       name: Owlet_Monster_Run_6_5
       rect:
         serializedVersion: 2
-        x: 165
+        x: 160
         y: 0
-        width: 21
-        height: 24
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -229,8 +229,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 455299d5d235cf3488fdcf5504d93724
-      internalID: -284072839
+      spriteID: bcc04664fc813ec4da2c6ba8ca526261
+      internalID: 1367283173
       vertices: []
       indices: 
       edges: []
@@ -246,12 +246,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Owlet_Monster_Run_6_0: -1568128254
-      Owlet_Monster_Run_6_1: 176810189
-      Owlet_Monster_Run_6_2: 511424259
-      Owlet_Monster_Run_6_3: -1200296710
-      Owlet_Monster_Run_6_4: 471024323
-      Owlet_Monster_Run_6_5: -284072839
+      Owlet_Monster_Run_6_0: -1200584667
+      Owlet_Monster_Run_6_1: -1252222180
+      Owlet_Monster_Run_6_2: 1385048644
+      Owlet_Monster_Run_6_3: 1862897915
+      Owlet_Monster_Run_6_4: 565427454
+      Owlet_Monster_Run_6_5: 1367283173
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
