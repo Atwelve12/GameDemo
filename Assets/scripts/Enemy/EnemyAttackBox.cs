@@ -22,8 +22,8 @@ public class EnemyAttackBox : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            Player_HP player = collision.GetComponent<Player_HP>();
-            player.GetHit(damage);
+            AttackControl player = collision.GetComponent<AttackControl>();
+            player.TakeDamage(damage);
         }
     }
 }
