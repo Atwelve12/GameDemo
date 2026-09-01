@@ -46,12 +46,29 @@ public class TreasureChest : MonoBehaviour
         {
             AudioSource.PlayOneShot(openChestClip);
         }
-        foreach(ChestReward reward in rewards)
+        int requestCount;
+        int successCount;
+        requestCount = rewards.Count;
+        successCount = 0;
+        foreach (var reward in rewards)
         {
-            manager.RequestAddResource(reward.resourceID,reward.amount);
+            manager.RequestAddResource(
+                reward.resourceID,
+                reward.amount,
+                success =>
+                {
+                    if (success)
+                    {
+                        successCount++;
+                        if (successCount == requestCount)
+                        {
+                            Debug.Log("宝箱全部奖励确认成功");
+                            Destroy(gameObject, openChestClip != null ? openChestClip.length : 0.1f);
+                        }
+                    }
+                }
+            );
         }
-        Debug.Log("宝箱开启");
-        Destroy(gameObject,openChestClip != null ? openChestClip.length : 0.1f);
     }
 }
 

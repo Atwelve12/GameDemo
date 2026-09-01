@@ -16,7 +16,12 @@ public class ResourcePickup : MonoBehaviour
         {  return; }
         manager = resourceSystem.Manager;
         Debug.Log("拾取资源ID：" + resourceID +"数量："+amount);
-        manager.RequestAddResource(resourceID,amount);
-        Destroy(gameObject);
+        manager.RequestAddResource(resourceID, amount, success =>
+            {
+                if (success)
+                { Destroy(gameObject); Debug.Log("资源拾取成功"); }
+                else { Debug.Log("资源拾取失败"); }
+            });
+        
     }
 }

@@ -8,9 +8,9 @@ public class ResourceManager
     public ResourceDatabase database;
     //服务器通信：负责客户端和服务端资源数据同步
     public bool IsInitialized { get; private set;  }
-    private System.Action<ResourceData> syncToServer;
+    private System.Action<ResourceData,System.Action<bool>> syncToServer;
     //构造函数
-    public ResourceManager(ResourceDatabase database, System.Action<ResourceData> syncToServer)
+    public ResourceManager(ResourceDatabase database, System.Action<ResourceData,System.Action<bool>> syncToServer)
     {
         this.database = database;
         this.syncToServer = syncToServer;
@@ -21,14 +21,13 @@ public class ResourceManager
         return resources.Count >= maxSlot;
     }
     //请求服务器增加资源
-    public void RequestAddResource(int id,int count)
+    public void RequestAddResource(int id,int count,System.Action<bool> calllback)
     {
-        Debug.Log("请求增加资源id：" + id + "数量:" + count);
         ResourceData data = new ResourceData();
         data.id= id;
         data.count = count;
         //通知发送请求
-        syncToServer?.Invoke(data);
+        syncToServer?.Invoke(data,calllback);
     }
     //TODO：减少资源，返回bool代表操作是否成功
     public bool RemoveResource(int id, int count)
