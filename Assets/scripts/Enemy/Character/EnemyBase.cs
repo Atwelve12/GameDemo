@@ -147,6 +147,7 @@ public class EnemyBase : MonoBehaviour
         canMove = true;
         speed = chaseSpeed;
         enemyAnimator.SetBool("IsChase",true);
+        enemyAnimator.SetBool("IsRun",true);
     }
 
     public virtual void ChaseUpdate()
@@ -181,6 +182,7 @@ public class EnemyBase : MonoBehaviour
     public virtual void ChaseExit()
     {
        enemyAnimator.SetBool("IsChase",false);
+       enemyAnimator.SetBool("IsRun",false);
 
       
     }   
