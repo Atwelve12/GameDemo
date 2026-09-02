@@ -1,5 +1,5 @@
 
-public class Enemy1 : EnemyBase
+public class Enemy_Normal : EnemyBase
 {
 
 }
