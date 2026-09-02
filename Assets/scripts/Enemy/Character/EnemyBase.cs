@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public enum EnemyState
@@ -17,7 +15,7 @@ public class EnemyBase : MonoBehaviour
     [Header("Enemy 基础属性")]
     public float HPMax = 100f;
     public float HPNow = 100f;
-    public float AttackDamage;
+    public float AttackDamage = 10f;
 
     [Header("Enemy 待机")]
     public float idleTime = 2f;
@@ -149,6 +147,7 @@ public class EnemyBase : MonoBehaviour
         canMove = true;
         speed = chaseSpeed;
         enemyAnimator.SetBool("IsChase",true);
+        enemyAnimator.SetBool("IsRun",true);
     }
 
     public virtual void ChaseUpdate()
@@ -183,6 +182,7 @@ public class EnemyBase : MonoBehaviour
     public virtual void ChaseExit()
     {
        enemyAnimator.SetBool("IsChase",false);
+       enemyAnimator.SetBool("IsRun",false);
 
       
     }   
