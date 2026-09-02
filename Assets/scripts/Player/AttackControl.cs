@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements.Experimental;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class AttackControl : MonoBehaviour
 {
@@ -14,8 +15,19 @@ public class AttackControl : MonoBehaviour
     public bool invulnerable;
     public float invulnerableDuration;
 
+    [Header("Player Gethit")]
+    public Slider hpSlider;
+
+    private Animation anim;
+
     public UnityEvent OnHurt;
     public UnityEvent OnDie;
+
+    private void Start()
+    {
+        anim = GetComponent<Animation>();
+        hpSlider.value = currentHealth / maxHealth;
+    }
     protected virtual void OnEnable()
     {
         currentHealth = maxHealth;
@@ -31,7 +43,7 @@ public class AttackControl : MonoBehaviour
         {
             currentHealth -= damage;
             StartCoroutine(nameof(InvulnerableCoroutine));//启动无敌状态的协程
-            //执行受伤动画
+            hpSlider.value = currentHealth / maxHealth;
             OnHurt?.Invoke();//这里用？可以防空
         }
         else
@@ -43,7 +55,7 @@ public class AttackControl : MonoBehaviour
     public  virtual void Die()
     {
         currentHealth = 0f;
-        //执行死亡动画
+        hpSlider.value = 0;
         OnDie?.Invoke ();
     }
 
