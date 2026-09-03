@@ -123,4 +123,26 @@ public class ResourceManager
         }
         Debug.Log("客户端资源更新完成");
     }
+    public void LoadFromSave(List<ResourceData> saveResources)
+    {
+        resources=new List<ResourceData>(saveResources);
+        Debug.Log(
+        "本地存档资源加载完成，资源数量："
+        + resources.Count
+    );
+        //根据资源数据库刷新资源名称
+        foreach (ResourceData resource in resources)
+        {
+            ResourceConfig config = database.GetResource(resource.id);
+            if (config != null)
+            {
+                resource.name = config.itemName;
+            }
+        }
+    }
+    //结束清空
+    public void ClearResources()
+    {
+        resources.Clear();
+    }
 }
