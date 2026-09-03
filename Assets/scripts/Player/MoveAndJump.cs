@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.U2D;
 
-public class PlayerMovement : MonoBehaviour
+public class MoveAndJump : MonoBehaviour
 {
     [Header("“∆∂Ø…Ë÷√")]
     public float moveSpeed = 5f;         
