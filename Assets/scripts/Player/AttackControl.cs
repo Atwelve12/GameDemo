@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements.Experimental;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.UIElements.Experimental;
 
 public class AttackControl : MonoBehaviour
 {
@@ -57,6 +58,7 @@ public class AttackControl : MonoBehaviour
         currentHealth = 0f;
         hpSlider.value = 0;
         OnDie?.Invoke ();
+        SceneManager.LoadScene("StartScene");
     }
 
     //нч╣п
